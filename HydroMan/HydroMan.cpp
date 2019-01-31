@@ -69,5 +69,10 @@ int main()
 	TotalOzOfWater = OzOfWater + TotalOzOfWater;
 	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
 
+	cout << "Enter oz of water\n";
+	cin >> OzOfWater;
+	TotalOzOfWater = OzOfWater + TotalOzOfWater;
+	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n"; 
+
 	return 0;
 }
