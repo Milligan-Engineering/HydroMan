@@ -11,6 +11,7 @@ int main()
 	double WaterNeeded;
 	int TotalOzOfWater;
 	int OzOfWater;
+	char MoreInputs;
 
 	cout << "welcome to Hydration Managment 2019!\n";
 
@@ -39,40 +40,18 @@ int main()
 
 	cout << "We are now ready to track water for the day!\n";
 
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
+	TotalOzOfWater = 0;
 
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater + TotalOzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
+	do
+	{
+		cout << "Enter oz of water\n";
+		cin >> OzOfWater;
+		TotalOzOfWater = OzOfWater + TotalOzOfWater;
+		cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
+		cout << "do you want to continue? Y/N?";
+		cin >> MoreInputs;
+	} while (MoreInputs == 'Y' );
 
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater + TotalOzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
-
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater + TotalOzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
-
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater + TotalOzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
-
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater + TotalOzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
-
-	cout << "Enter oz of water\n";
-	cin >> OzOfWater;
-	TotalOzOfWater = OzOfWater + TotalOzOfWater;
-	cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n"; 
-
+	cout << "total water for the day is " << TotalOzOfWater;
 	return 0;
 }
