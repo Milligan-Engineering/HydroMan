@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
+// String and calculation OK
 int main()
 {
 	string name;
@@ -38,7 +40,7 @@ int main()
 	cout << "based on your profile you need to drink " << WaterNeeded << " oz of water per day\n";
 
 	cout << "We are now ready to track water for the day!\n";
-
+	// Could put in loop but I think I saw this in later versions
 	cout << "Enter oz of water\n";
 	cin >> OzOfWater;
 	TotalOzOfWater = OzOfWater;
