@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
+// String and calculation OK
 int main()
 {
 	string name;
