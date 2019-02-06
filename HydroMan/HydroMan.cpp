@@ -5,10 +5,6 @@
 //Description: Program to manage athletes Hydration 
 //Last Changed:  Feburary 4, 2019
 
-
-
-
-
 #include <iostream>
 #include <string>
 using namespace std;
@@ -23,6 +19,12 @@ int main()
 	int TotalOzOfWater;
 	int OzOfWater;
 	char MoreInputs;
+	char waterOrWorkout;
+	int daysInMonth[31];
+	
+
+
+	//profile setup 
 
 	cout << "welcome to Hydration Managment 2019!\n";
 
@@ -49,20 +51,39 @@ int main()
 
 	cout << "based on your profile you need to drink " << WaterNeeded << " oz of water per day\n";
 
-	cout << "We are now ready to track water for the day!\n";
-
-	TotalOzOfWater = 0;
-
-	do
+	cout << "would you like to track your water for the day or setup some workouts?\n";
+	cout << "Press S to setup workouts or Press W to track water\n";
+	cin >> waterOrWorkout;
+	cout << "You choose " << waterOrWorkout << "\n";
+	if (waterOrWorkout == 'W')
 	{
-		cout << "Enter oz of water\n";
-		cin >> OzOfWater;
-		TotalOzOfWater = OzOfWater + TotalOzOfWater;
-		cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
-		cout << "do you want to continue? Y/N?";
-		cin >> MoreInputs;
-	} while (MoreInputs == 'Y' );
+		cout << "We are now ready to track water for the day!\n";
 
-	cout << "total water for the day is " << TotalOzOfWater;
+		// do while loop to track water
+
+		TotalOzOfWater = 0;
+
+		do
+		{
+			cout << "Enter oz of water\n";
+			cin >> OzOfWater;
+			TotalOzOfWater = OzOfWater + TotalOzOfWater;
+			cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
+			cout << "do you want to continue? Y/N?";
+			cin >> MoreInputs;
+		} while (MoreInputs == 'Y');
+
+		cout << "total water for the day is " << TotalOzOfWater;
+	}
+
+	if (waterOrWorkout == 'S')
+	{
+		cout << "choose current month\n";
+
+	}
+	if ( ( waterOrWorkout != 'W') && ( waterOrWorkout != 'S') );
+	{
+		cout << "invalid imput please enter again\n";
+	}
 	return 0;
 }
