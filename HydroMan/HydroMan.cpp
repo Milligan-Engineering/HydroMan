@@ -125,10 +125,6 @@ int main()
 				d++;
 			}
 			cout << "\n";
-			// still in progress of finding out how to imput workout dates and display that back
-			cout << "Enter workout date\n";
-			cin >> workoutDate[1, 2, 3, 4, 5, 6, 7, 8];
-
 		}
 
 			
