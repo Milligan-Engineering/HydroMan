@@ -26,6 +26,7 @@ int main()
 	int currentMonth;
 	int d;
 	int workoutDate[32];
+	char anyKey;
 
 	//profile setup 
 
@@ -127,6 +128,8 @@ int main()
 			cout << "\n";
 		}
 
+		cout << "hit any key to continue \n";
+		cin >> anyKey;
 			
 			
 
