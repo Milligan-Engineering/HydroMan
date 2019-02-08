@@ -15,14 +15,17 @@ int main()
 	double weight;
 	int heightFt;
 	int heightIn;
-	double WaterNeeded;
-	int TotalOzOfWater;
-	int OzOfWater;
-	char MoreInputs;
+	const double waterFactor = .5;
+	double waterNeeded;
+	int totalOzOfWater;
+	int ozOfWater;
+	char moreInputs;
 	char waterOrWorkout;
-	int daysInMonth[31];
-	
-
+	int daysInMonth[31] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+	int monthsInYear[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+	int currentMonth;
+	int d;
+	int workoutDate[32];
 
 	//profile setup 
 
@@ -47,9 +50,9 @@ int main()
 		<< weight << "lbs \n"
 		<< heightFt << "Ft " << heightIn << "In \n";
 
-	WaterNeeded = weight * .5;
+	waterNeeded = weight * waterFactor;
 
-	cout << "based on your profile you need to drink " << WaterNeeded << " oz of water per day\n";
+	cout << "based on your profile you need to drink " << waterNeeded << " oz of water per day\n";
 
 	cout << "would you like to track your water for the day or setup some workouts?\n";
 	cout << "Press S to setup workouts or Press W to track water\n";
@@ -61,29 +64,76 @@ int main()
 
 		// do while loop to track water
 
-		TotalOzOfWater = 0;
+		totalOzOfWater = 0;
 
 		do
 		{
 			cout << "Enter oz of water\n";
-			cin >> OzOfWater;
-			TotalOzOfWater = OzOfWater + TotalOzOfWater;
-			cout << "You have currently drank " << TotalOzOfWater << " oz. of water\n";
+			cin >> ozOfWater;
+			totalOzOfWater = ozOfWater + totalOzOfWater;
+			cout << "You have currently drank " << totalOzOfWater << " oz. of water\n";
 			cout << "do you want to continue? Y/N?";
-			cin >> MoreInputs;
-		} while (MoreInputs == 'Y');
+			cin >> moreInputs;
+		} while (moreInputs == 'Y');
 
-		cout << "total water for the day is " << TotalOzOfWater;
+		cout << "total water for the day is " << totalOzOfWater;
 	}
 
 	if (waterOrWorkout == 'S')
 	{
-		cout << "choose current month\n";
+		cout << "choose current month 1-12\n"; 
+		cin >> currentMonth;
+		cout << "You choose month " << currentMonth << "\n";
+		d = 0;
 
-	}
-	if ( ( waterOrWorkout != 'W') && ( waterOrWorkout != 'S') );
-	{
-		cout << "invalid imput please enter again\n";
+		// january display loop
+		if (currentMonth == 1)
+		{
+			cout << "      ";
+			while (d <= 4)
+			{
+				cout << daysInMonth[d] << "  ";
+				d++;
+			}
+			cout << "\n";
+			while ((d > 4) && (d <= 8))
+			{
+				cout << daysInMonth[d] << "  ";
+				d++;
+			}
+			while ((d > 8) && (d <= 11))
+			{
+				cout << daysInMonth[d] << " ";
+				d++;
+			}
+			cout << "\n";
+			while ((d > 11) && (d <= 18))
+			{
+				cout << daysInMonth[d] << " ";
+				d++;
+			}
+			cout << "\n";
+			while ((d > 18) && (d <= 25))
+			{
+				cout << daysInMonth[d] << " ";
+				d++;
+			}
+			cout << "\n";
+			while ((d > 25) && (d < 31))
+			{
+				cout << daysInMonth[d] << " ";
+				d++;
+			}
+			cout << "\n";
+			// still in progress of finding out how to imput workout dates and display that back
+			cout << "Enter workout date\n";
+			cin >> workoutDate[1, 2, 3, 4, 5, 6, 7, 8];
+
+		}
+
+			
+			
+
 	}
 	return 0;
 }
