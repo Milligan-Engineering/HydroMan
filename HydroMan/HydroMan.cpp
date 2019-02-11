@@ -9,13 +9,13 @@
 #include <string>
 
 /*PM04 Checklist
-- If Statement
++ If Statement
 + Multi If or While
 + Indentation
-- Header - Missing
-- Comments
-- Named Constant
-- Arrary
++ Header
++ Comments - Be a bit more generous
++ Named Constant
++ Arrary
 */
 using namespace std;
 int main()
