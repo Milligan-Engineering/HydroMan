@@ -1,5 +1,15 @@
 #include <iostream>
 #include <string>
+
+/*PM04 Checklist
+- If Statement
++ Multi If or While
++ Indentation
+- Header - Missing
+- Comments
+- Named Constant
+- Arrary
+*/
 using namespace std;
 int main()
 {
