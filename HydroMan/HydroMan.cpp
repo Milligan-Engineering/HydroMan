@@ -9,7 +9,7 @@
 #include <string>
 
 using namespace std;
-
+// Not taking valid inputs - line 91
 
 int main()
 {
@@ -93,7 +93,7 @@ int main()
 		cout << "invalid input please enter W or S.\n";
 		cin >> waterOrWorkout;
 	}
-	cout << "You choose " << waterOrWorkout << "\n";
+	cout << "You chose " << waterOrWorkout << "\n";
 	if (waterOrWorkout == 'W')
 	{
 		cout << "We are now ready to track water for the day!\n";
