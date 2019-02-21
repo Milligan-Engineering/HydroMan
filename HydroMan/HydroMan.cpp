@@ -88,7 +88,7 @@ int main()
 	cout << "Press S to setup workouts or Press W to track water\n";
 	cin >> waterOrWorkout;
 
-	while ((waterOrWorkout != 'W') || (waterOrWorkout != 'S'))
+	while ((waterOrWorkout != 'W') && (waterOrWorkout != 'S'))
 	{
 		cout << "invalid input please enter W or S.\n";
 		cin >> waterOrWorkout;
