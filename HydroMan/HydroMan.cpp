@@ -12,13 +12,18 @@
 using namespace std;
 
 double timeConverter(int monthVal, int dayVal, int yearVal);
-// Precondition: User inputs dates
+// Precondition: User inputs dates - be more - specfic month day and year.
 // Postcondition: how many seconds from jan 1 1970 to date inputed
 
 double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar);
-// Precondition: User will have variables stored in profile 
-// Postcondition: User will know how much water needs to be drank in a day
-
+// Precondition: User will have variables stored in profile - again give specifics like what units
+// Postcondition: Returns calculation of estimated water need per day in OZ or liters
+// +Predefined Function
+// +User-defined Function
+// +Pre and Post conditions
+// Hide seconds from users. Probably only interested in days.
+// Work on adding entering of workout intensity and calculating increased water needs. Can use empty functions.
+// Initalize daily water total outside of water entry loop. Add a manual or automatic reset option.
 
 
 int main()
@@ -32,7 +37,7 @@ int main()
 	int ozOfWater;
 	char moreInputs;
 	char waterOrWorkout;
-	int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //Make a global constant
 	int yearVal;
 	int monthVal;
 	int dayVal;
@@ -44,6 +49,7 @@ int main()
 
 	do
 	{
+		cout << "Choose and Option:\n"; 
 		cout << "S - Setup Workouts. \nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
 		cin >> waterOrWorkout;
 
