@@ -11,13 +11,16 @@
 
 using namespace std;
 
-double timeConverter(int monthVal, int dayVal, int yearVal);
-// Precondition: User inputs dates
-// Postcondition: how many seconds from jan 1 1970 to date inputed
+double dateToSeconds(int monthVal, int dayVal, int yearVal);
+// Precondition: User inputs dates in format mm dd yyyy
+// Postcondition: Returns how many seconds from jan 1 1970 to 12:00AM on the date inputed
 
 double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar);
 // Precondition: User will have variables stored in profile 
 // Postcondition: User will know how much water needs to be drank in a day
+
+void listPrintDates(double dayArray[], int ArraySizeDay);
+// Precondition: Inputs date 
 
 
 
@@ -28,7 +31,7 @@ int main()
 	int heightFt = 6;
 	int heightIn = 5;
 	char gender = 'M';
-	int totalOzOfWater;
+	int totalOzOfWater = 0;
 	int ozOfWater;
 	char moreInputs;
 	char waterOrWorkout;
@@ -41,16 +44,33 @@ int main()
 	double currentTime;
 	double workoutDate;
 	double timeDifference;
+	double waterDifference;
+	double workoutDays[31];
 
+	// do while satement to relay menu prompt
 	do
 	{
+		// menu for switch
 		cout << "S - Setup Workouts. \nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
 		cin >> waterOrWorkout;
 
 		switch (waterOrWorkout)
 		{
+			// workout branch
 			case 'S':
 			{
+				while (workoutDays[] < 32)
+				{
+					for (int arraysize = 0; arraysize < 32; arraysize++)
+					{
+						cout << "Enter days of this month you have workouts.";
+						cin >> workoutDays[arraysize];
+					}
+					
+				}
+
+					listPrintDates(workoutDays, 31)
+
 				// telling current time
 				time_t(currentTime);
 				currentTime = time(NULL);
@@ -77,14 +97,14 @@ int main()
 
 				cin >> yearVal;
 
-				while ((yearVal < 2019) || (monthVal > 2099))
+				while ((yearVal < 1970) || (monthVal > 2099))
 				{
-					cout << "year input must be from 2019 to 2099.\n";
+					cout << "year input must be from 1970 to 2099.\n";
 					cin >> yearVal;
 				}
 
 				cout << "you have selected " << monthVal << ", " << dayVal << ", " << yearVal << "\n";
-				workoutDate = timeConverter(monthVal, dayVal, yearVal);
+				workoutDate = dateToSeconds(monthVal, dayVal, yearVal);
 
 
 				cout << "you selected a workout date for.\n" << workoutDate;
@@ -99,8 +119,6 @@ int main()
 
 				// do while loop to track water
 
-				totalOzOfWater = 0;
-
 				do
 				{
 					cout << "Enter oz of water\n";
@@ -114,12 +132,16 @@ int main()
 
 					totalOzOfWater = ozOfWater + totalOzOfWater;
 					cout << "You have currently drank " << totalOzOfWater << " oz. of water\n";
+					todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
+					cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
+					waterDifference = todayWaterNeeded - totalOzOfWater;
+					cout << "you still need " << waterDifference << " oz of water today.";
 					cout << "do you want to continue? Y/N?";
 					cin >> moreInputs;
 				} while (moreInputs == 'Y');
 
 
-				cout << "total water for the day is " << totalOzOfWater << "\n";
+				cout << " total water for the day is " << totalOzOfWater << "\n";
 				break;
 			}
 			case 'P':
@@ -187,13 +209,13 @@ int main()
 			return(waterNeeded);
 		}
 
-		double timeConverter(int monthVal, int dayVal, int yearVal)
+		double dateToSeconds(int monthVal, int dayVal, int yearVal)
 		{
 
 			double timeFormat;
-			int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+			const int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 			timeFormat = (yearVal - 1970) * 365;
-			timeFormat += (yearVal - 1970) / 4;
+			timeFormat += (yearVal - 1969) / 4;
 			for (int i = 0; i < monthVal - 1; i++)
 			{
 				timeFormat += daysOfMonth[i];
@@ -204,4 +226,14 @@ int main()
 			return(timeFormat);
 		}
 
+		
+
+		void listPrintDates(double dayArray[],  int ArraySizeDay)
+		{
+			for (int i = 0; i < ArraySizeDay; i++)
+			{
+				cout << dayArray[i] << "/n";
+			}
+			return;
+		}
 	
