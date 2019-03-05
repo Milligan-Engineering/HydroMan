@@ -57,12 +57,12 @@ int main()
 		switch (waterOrWorkout)
 		{
 			// workout branch
-		case 'S':
-		{
+			case 'S':
+			{
 				// telling current time
-			currentTime = time(NULL);
-			cout << currentTime << " seconds has passed since 00:00:00 GMT, Jan 1, 1970\n";
-			//date format converter
+				currentTime = time(NULL);
+				cout << currentTime << " seconds has passed since 00:00:00 GMT, Jan 1, 1970\n";
+				//date format converter
 			
 				
 					cout << "enter workout month, day and year.\n";
@@ -94,97 +94,97 @@ int main()
 					workoutDate[numberOfWorkouts] = dateToSeconds(monthVal, dayVal, yearVal);
 	
 
-			listPrintDates(workoutDate, 3);
+				listPrintDates(workoutDate, 3);
 
-			break;
-		}
-		case 'W':
-		{
-			cout << "We are now ready to track water for the day!\n";
-
-			// do while loop to track water
-
-			do
+				break;
+			}
+			case 'W':
 			{
-				cout << "Enter oz of water\n";
-				cin >> ozOfWater;
+				cout << "We are now ready to track water for the day!\n";
 
-				while ((ozOfWater < 0) || (ozOfWater > 33))
+				// do while loop to track water
+
+				do
 				{
-					cout << "Please enter a valid water input from 1 to 32 oz.\n";
+					cout << "Enter oz of water\n";
 					cin >> ozOfWater;
+
+					while ((ozOfWater < 0) || (ozOfWater > 33))
+					{
+						cout << "Please enter a valid water input from 1 to 32 oz.\n";
+						cin >> ozOfWater;
+					}
+
+					totalOzOfWater = ozOfWater + totalOzOfWater;
+					cout << "You have currently drank " << totalOzOfWater << " oz. of water\n";
+					todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
+					cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
+					waterDifference = todayWaterNeeded - totalOzOfWater;
+					cout << "you still need " << waterDifference << " oz of water today.";
+					cout << "do you want to continue? Y/N?";
+					cin >> moreInputs;
+				} while (moreInputs == 'Y');
+
+
+				cout << " total water for the day is " << totalOzOfWater << "\n";
+			}	break;
+		
+			case 'P':
+			{
+				cout << "Lets set up your user profile!\n";
+
+
+				cout << "age?\n";
+				cin >> age;
+
+				//validating age
+				while ((age < 5) || (age > 100))
+				{
+					cout << "invalid input please enter an age 5 to 100.\n";
+					cin >> age;
 				}
 
-				totalOzOfWater = ozOfWater + totalOzOfWater;
-				cout << "You have currently drank " << totalOzOfWater << " oz. of water\n";
+				cout << "weight in lbs?\n";
+				cin >> weight;
+
+				//validating weight
+				while ((weight < 80) || (weight > 500))
+				{
+					cout << "invalid input please enter a weight 80lbs to 500lbs.\n";
+					cin >> weight;
+				}
+
+				cout << "height in Ft and In?\n";
+				cin >> heightFt >> heightIn;
+
+				//validating height
+				while ((heightFt < 3) || (heightFt > 7))
+				{
+					cout << "invalid input please enter a height from 3FT and 7FT.\n";
+					cin >> heightFt;
+				}
+
+				while ((heightIn < 1) || (heightIn > 11))
+				{
+					cout << "invalid input please enter a height from 0IN to 12IN.\n";
+					cin >> heightIn;
+				}
+
+				cout << "Your current proflie settings are.\n" << "\n"
+					<< age << "Years old \n"
+					<< weight << "lbs \n"
+					<< heightFt << "Ft " << heightIn << "In \n";
 				todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
 				cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
-				waterDifference = todayWaterNeeded - totalOzOfWater;
-				cout << "you still need " << waterDifference << " oz of water today.";
-				cout << "do you want to continue? Y/N?";
-				cin >> moreInputs;
-			} while (moreInputs == 'Y');
-
-
-			cout << " total water for the day is " << totalOzOfWater << "\n";
-			break;
+				break;
+			}
 		}
-		case 'P':
-		{
-			cout << "Lets set up your user profile!\n";
 
-
-			cout << "age?\n";
-			cin >> age;
-
-			//validating age
-			while ((age < 5) || (age > 100))
-			{
-				cout << "invalid input please enter an age 5 to 100.\n";
-				cin >> age;
-			}
-
-			cout << "weight in lbs?\n";
-			cin >> weight;
-
-			//validating weight
-			while ((weight < 80) || (weight > 500))
-			{
-				cout << "invalid input please enter a weight 80lbs to 500lbs.\n";
-				cin >> weight;
-			}
-
-			cout << "height in Ft and In?\n";
-			cin >> heightFt >> heightIn;
-
-			//validating height
-			while ((heightFt < 3) || (heightFt > 7))
-			{
-				cout << "invalid input please enter a height from 3FT and 7FT.\n";
-				cin >> heightFt;
-			}
-
-			while ((heightIn < 1) || (heightIn > 11))
-			{
-				cout << "invalid input please enter a height from 0IN to 12IN.\n";
-				cin >> heightIn;
-
-			}
-
-			cout << "Your current proflie settings are.\n" << "\n"
-				<< age << "Years old \n"
-				<< weight << "lbs \n"
-				<< heightFt << "Ft " << heightIn << "In \n";
-			todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
-			cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
-			break;
-		}
-		}
 	} while (waterOrWorkout != 'E');
-
-
-
 }
+
+
+
 
 double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar)
 {
