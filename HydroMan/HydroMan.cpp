@@ -11,6 +11,14 @@
 
 using namespace std;
 
+int age = 19;
+int weight = 210;
+int heightFt = 6;
+int heightIn = 5;
+char gender = 'M';
+
+void personalTraits(int age, int weight, int heightFt, int heightIn);
+
 double dateToSeconds(int monthVal, int dayVal, int yearVal);
 // Precondition: User inputs dates in format mm dd yyyy
 // Postcondition: Returns how many seconds from jan 1 1970 to 12:00AM on the date inputed
@@ -26,11 +34,6 @@ int numberOfWorkouts = 3;
 
 int main()
 {
-	int age = 19;
-	int weight = 210;
-	int heightFt = 6;
-	int heightIn = 5;
-	char gender = 'M';
 	int totalOzOfWater = 0;
 	int ozOfWater;
 	char moreInputs;
@@ -131,49 +134,7 @@ int main()
 		
 			case 'P':
 			{
-				cout << "Lets set up your user profile!\n";
-
-
-				cout << "age?\n";
-				cin >> age;
-
-				//validating age
-				while ((age < 5) || (age > 100))
-				{
-					cout << "invalid input please enter an age 5 to 100.\n";
-					cin >> age;
-				}
-
-				cout << "weight in lbs?\n";
-				cin >> weight;
-
-				//validating weight
-				while ((weight < 80) || (weight > 500))
-				{
-					cout << "invalid input please enter a weight 80lbs to 500lbs.\n";
-					cin >> weight;
-				}
-
-				cout << "height in Ft and In?\n";
-				cin >> heightFt >> heightIn;
-
-				//validating height
-				while ((heightFt < 3) || (heightFt > 7))
-				{
-					cout << "invalid input please enter a height from 3FT and 7FT.\n";
-					cin >> heightFt;
-				}
-
-				while ((heightIn < 1) || (heightIn > 11))
-				{
-					cout << "invalid input please enter a height from 0IN to 12IN.\n";
-					cin >> heightIn;
-				}
-
-				cout << "Your current proflie settings are.\n" << "\n"
-					<< age << "Years old \n"
-					<< weight << "lbs \n"
-					<< heightFt << "Ft " << heightIn << "In \n";
+				personalTraits(age, weight, heightFt, heightIn);
 				todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
 				cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
 				break;
@@ -222,4 +183,49 @@ void listPrintDates(double dayArray[], int ArraySizeDay)
 	return;
 }
 
-	
+void personalTraits(int age,int weight,int heightFt,int heightIn)
+{
+	cout << "Lets set up your user profile!\n";
+
+	cout << "age?\n";
+	cin >> age;
+
+	//validating age
+	while ((age < 5) || (age > 100))
+	{
+		cout << "invalid input please enter an age 5 to 100.\n";
+		cin >> age;
+	}
+
+	cout << "weight in lbs?\n";
+	cin >> weight;
+
+	//validating weight
+	while ((weight < 80) || (weight > 500))
+	{
+		cout << "invalid input please enter a weight 80lbs to 500lbs.\n";
+		cin >> weight;
+	}
+
+	cout << "height in Ft and In?\n";
+	cin >> heightFt >> heightIn;
+
+	//validating height
+	while ((heightFt < 3) || (heightFt > 7))
+	{
+		cout << "invalid input please enter a height from 3FT and 7FT.\n";
+		cin >> heightFt;
+	}
+
+	while ((heightIn < 1) || (heightIn > 11))
+	{
+		cout << "invalid input please enter a height from 0IN to 12IN.\n";
+		cin >> heightIn;
+	}
+
+	cout << "Your current proflie settings are.\n" << "\n"
+	<< age << "Years old \n"
+	<< weight << "lbs \n"
+	<< heightFt << "Ft " << heightIn << "In \n";
+	return;
+}
