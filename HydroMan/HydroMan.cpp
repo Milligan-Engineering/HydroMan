@@ -11,11 +11,7 @@
 
 using namespace std;
 
-int age = 19;
-int weight = 210;
-int heightFt = 6;
-int heightIn = 5;
-char gender = 'M';
+void inputDates(int& monthVal, int& dayVal, int& yearVal);
 
 void personalTraits(int age, int weight, int heightFt, int heightIn);
 
@@ -28,12 +24,17 @@ double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightP
 // Postcondition: User will know how much water needs to be drank in a day
 
 void listPrintDates(double dayArray[], int ArraySizeDay);
-// Precondition: Inputs date 
+
 
 int numberOfWorkouts = 3;
 
 int main()
 {
+	int age = 19;
+	int weight = 210;
+	int heightFt = 6;
+	int heightIn = 5;
+	char gender = 'M';
 	int totalOzOfWater = 0;
 	int ozOfWater;
 	char moreInputs;
@@ -67,34 +68,8 @@ int main()
 				cout << currentTime << " seconds has passed since 00:00:00 GMT, Jan 1, 1970\n";
 				//date format converter
 			
-				
-					cout << "enter workout month, day and year.\n";
-					cin >> monthVal;
-
-					while ((monthVal < 1) || (monthVal > 12))
-					{
-						cout << "month input must be from 1 to 12.\n";
-						cin >> monthVal;
-					}
-
-					cin >> dayVal;
-
-					while ((dayVal < 1) || (dayVal > 31))
-					{
-						cout << "day input must be from 1 to 31.\n";
-						cin >> dayVal;
-					}
-
-					cin >> yearVal;
-
-					while ((yearVal < 1970) || (monthVal > 2099))
-					{
-						cout << "year input must be from 1970 to 2099.\n";
-						cin >> yearVal;
-					}
-
-					cout << "you have selected " << monthVal << ", " << dayVal << ", " << yearVal << "\n";
-					workoutDate[numberOfWorkouts] = dateToSeconds(monthVal, dayVal, yearVal);
+				inputDates(monthVal, dayVal, yearVal);
+				workoutDate[numberOfWorkouts] = dateToSeconds(monthVal, dayVal, yearVal);
 	
 
 				listPrintDates(workoutDate, 3);
@@ -228,4 +203,34 @@ void personalTraits(int age,int weight,int heightFt,int heightIn)
 	<< weight << "lbs \n"
 	<< heightFt << "Ft " << heightIn << "In \n";
 	return;
+}
+
+void inputDates(int& monthVal, int& dayVal, int& yearVal)
+{
+	cout << "enter workout month, day and year.\n";
+	cin >> monthVal;
+
+	while ((monthVal < 1) || (monthVal > 12))
+	{
+		cout << "month input must be from 1 to 12.\n";
+		cin >> monthVal;
+	}
+
+	cin >> dayVal;
+
+	while ((dayVal < 1) || (dayVal > 31))
+	{
+		cout << "day input must be from 1 to 31.\n";
+		cin >> dayVal;
+	}
+
+	cin >> yearVal;
+
+	while ((yearVal < 1970) || (monthVal > 2099))
+	{
+		cout << "year input must be from 1970 to 2099.\n";
+		cin >> yearVal;
+	}
+
+	cout << "you have selected " << monthVal << ", " << dayVal << ", " << yearVal << "\n";
 }
