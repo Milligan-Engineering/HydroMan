@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <fstream> 
 
 using namespace std;
 
@@ -47,13 +48,14 @@ int main()
 	double currentTime;
 	double workoutDate[20];
 	double waterDifference;
-
+	ifstream inStream, instream2;
+	ofstream outStream, outStream2;
 
 	// do while satement to relay menu prompt
 	do
 	{
 		// menu for switch
-		cout << "S - Setup Workouts. \nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
+		cout << "S - Setup Workouts. \nD - Display upcoming workouts.\nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
 		cin >> waterOrWorkout;
 
 
@@ -70,10 +72,24 @@ int main()
 			
 				inputDates(monthVal, dayVal, yearVal);
 				workoutDate[numberOfWorkouts] = dateToSeconds(monthVal, dayVal, yearVal);
-	
+				double timediff;
+				timediff = workoutDate[numberOfWorkouts] - currentTime;
 
 				listPrintDates(workoutDate, 3);
+				cout << "\n";
+				outStream.open("workoutDateFile");
+				outStream << "You have a workout on " << workoutDate[numberOfWorkouts];
+				outStream.close();
 
+				break;
+			}
+			case 'D':
+			{
+				string line;
+				inStream.open("workoutDateFile");
+				getline(inStream, line);
+				cout << line << endl;
+				inStream.close();
 				break;
 			}
 			case 'W':
@@ -109,9 +125,18 @@ int main()
 		
 			case 'P':
 			{
+				
 				personalTraits(age, weight, heightFt, heightIn);
+
+				instream2.open("profileSettingsFile");
+				outStream2.open("profileSettingsFile");
+				outStream2 << "age " << age << "\n" << "weight " << weight << "\n" << "height in Ft " << heightFt << "\n" << "height in In " << heightIn;
+				instream2 >> age >> weight >> heightFt >> heightIn;
 				todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
 				cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
+
+				instream2.close();
+				outStream2.close();
 				break;
 			}
 		}
@@ -132,17 +157,29 @@ double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightP
 
 double dateToSeconds(int monthVal, int dayVal, int yearVal)
 {
-
+	
 	double timeFormat;
-	const int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	timeFormat = (yearVal - 1970) * 365;
 	timeFormat += (yearVal - 1970) / 4;
 	for (int i = 0; i < monthVal - 1; i++)
 	{
-		timeFormat += daysOfMonth[i];
+		if (((yearVal % 4 == 0) && (yearVal % 100 != 0)) || (yearVal % 400 == 0))
+		{
+			int daysOfMonth[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+			timeFormat += daysOfMonth[i];
+		}
+		else
+		{
+			int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+			timeFormat += daysOfMonth[i];
+		}
 	}
 	timeFormat += dayVal - 1;
 	timeFormat = timeFormat * 24 * 60 * 60;
+	if (((yearVal % 4 == 0) && (yearVal % 100 != 0)) || (yearVal % 400 == 0))
+	
+	
+	
 	cout << timeFormat;
 	return(timeFormat);
 }
@@ -153,7 +190,10 @@ void listPrintDates(double dayArray[], int ArraySizeDay)
 {
 	for (int i = 0; i < ArraySizeDay; i++)
 	{
-		cout << dayArray[i] << "\n";
+		if (dayArray[i] > 0)
+		{
+			cout << "you have a workout on " << dayArray[i] << " of this month" << "\n";
+		}
 	}
 	return;
 }
