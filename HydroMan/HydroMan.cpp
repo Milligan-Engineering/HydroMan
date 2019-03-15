@@ -75,6 +75,7 @@ int main()
 				double timediff;
 				timediff = workoutDate[numberOfWorkouts] - currentTime;
 
+				//puts workout dates into file named workoutDateFile
 				listPrintDates(workoutDate, 3);
 				cout << "\n";
 				outStream.open("workoutDateFile");
@@ -85,6 +86,7 @@ int main()
 			}
 			case 'D':
 			{
+				// pulls workout dates from workout date file and displays on the screen.
 				string line;
 				inStream.open("workoutDateFile");
 				getline(inStream, line);
@@ -125,9 +127,9 @@ int main()
 		
 			case 'P':
 			{
-				
+				// function to imput characteristics 
 				personalTraits(age, weight, heightFt, heightIn);
-
+				// puts profile setting into file named profileSettingsFile.
 				instream2.open("profileSettingsFile");
 				outStream2.open("profileSettingsFile");
 				outStream2 << "age " << age << "\n" << "weight " << weight << "\n" << "height in Ft " << heightFt << "\n" << "height in In " << heightIn;
@@ -160,7 +162,7 @@ double dateToSeconds(int monthVal, int dayVal, int yearVal)
 	
 	double timeFormat;
 	timeFormat = (yearVal - 1970) * 365;
-	timeFormat += (yearVal - 1970) / 4;
+	timeFormat += (yearVal - 1969) / 4;
 	for (int i = 0; i < monthVal - 1; i++)
 	{
 		if (((yearVal % 4 == 0) && (yearVal % 100 != 0)) || (yearVal % 400 == 0))
@@ -176,9 +178,6 @@ double dateToSeconds(int monthVal, int dayVal, int yearVal)
 	}
 	timeFormat += dayVal - 1;
 	timeFormat = timeFormat * 24 * 60 * 60;
-	if (((yearVal % 4 == 0) && (yearVal % 100 != 0)) || (yearVal % 400 == 0))
-	
-	
 	
 	cout << timeFormat;
 	return(timeFormat);
