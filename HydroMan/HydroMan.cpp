@@ -9,6 +9,7 @@
 #include <string>
 #include <ctime>
 #include <fstream> 
+#include <limits>
 
 using namespace std;
 
@@ -22,7 +23,7 @@ double dateToSeconds(int monthVal, int dayVal, int yearVal);
 
 double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar);
 // Precondition: User will have variables stored in profile 
-// Postcondition: User will know how much water needs to be drank in a day
+// Postcondition: User will know how much water needs to be drank in a day 
 
 void listPrintDates(double dayArray[], int ArraySizeDay);
 
@@ -31,6 +32,7 @@ int numberOfWorkouts = 3;
 
 int main()
 {
+	string name = "John";
 	int age = 19;
 	int weight = 210;
 	int heightFt = 6;
@@ -39,7 +41,7 @@ int main()
 	int totalOzOfWater = 0;
 	int ozOfWater;
 	char moreInputs;
-	char waterOrWorkout;
+	char waterOrWorkout = 'S';
 	int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int yearVal;
 	int monthVal;
@@ -48,16 +50,19 @@ int main()
 	double currentTime;
 	double workoutDate[20];
 	double waterDifference;
-	ifstream inStream, instream2;
-	ofstream outStream, outStream2;
+	int  rateOfPerceivedExertion[20];
+	ifstream inStream, inStream2;
+	ofstream outStream, outStream2, waterStream;
 
 	// do while satement to relay menu prompt
-	do
+	
+
+
+	do 
 	{
 		// menu for switch
 		cout << "S - Setup Workouts. \nD - Display upcoming workouts.\nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
-		cin >> waterOrWorkout;
-
+		cin >> waterOrWorkout; 
 
 
 		switch (waterOrWorkout)
@@ -67,10 +72,9 @@ int main()
 			{
 				// telling current time
 				currentTime = time(NULL);
-				cout << currentTime << " seconds has passed since 00:00:00 GMT, Jan 1, 1970\n";
 				//date format converter
 			
-				inputDates(monthVal, dayVal, yearVal);
+				inputDates(monthVal, dayVal, yearVal); 
 				workoutDate[numberOfWorkouts] = dateToSeconds(monthVal, dayVal, yearVal);
 				double timediff;
 				timediff = workoutDate[numberOfWorkouts] - currentTime;
@@ -105,6 +109,12 @@ int main()
 					cout << "Enter oz of water\n";
 					cin >> ozOfWater;
 
+					if (cin.fail())
+					{
+						cin.clear();
+						cin.ignore(numeric_limits <streamsize>::max(), '\n');
+					}
+
 					while ((ozOfWater < 0) || (ozOfWater > 33))
 					{
 						cout << "Please enter a valid water input from 1 to 32 oz.\n";
@@ -123,6 +133,9 @@ int main()
 
 
 				cout << " total water for the day is " << totalOzOfWater << "\n";
+				waterStream.open("performance_data.csv");
+				waterStream << name << "," << workoutDate[numberOfWorkouts] << "," << rateOfPerceivedExertion[numberOfWorkouts] << ","  << totalOzOfWater << "," << baseWaterNeeded;
+				waterStream.close();
 			}	break;
 		
 			case 'P':
@@ -130,14 +143,12 @@ int main()
 				// function to imput characteristics 
 				personalTraits(age, weight, heightFt, heightIn);
 				// puts profile setting into file named profileSettingsFile.
-				instream2.open("profileSettingsFile");
-				outStream2.open("profileSettingsFile");
+			
+				outStream2.open("profileSettingsFile.csv");
 				outStream2 << "age " << age << "\n" << "weight " << weight << "\n" << "height in Ft " << heightFt << "\n" << "height in In " << heightIn;
-				instream2 >> age >> weight >> heightFt >> heightIn;
 				todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
 				cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
 
-				instream2.close();
 				outStream2.close();
 				break;
 			}
@@ -151,6 +162,7 @@ int main()
 
 double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar)
 {
+	
 	const double weightConst = .5;
 	double waterNeeded;
 	waterNeeded = weightPar * .5;
@@ -178,8 +190,7 @@ double dateToSeconds(int monthVal, int dayVal, int yearVal)
 	}
 	timeFormat += dayVal - 1;
 	timeFormat = timeFormat * 24 * 60 * 60;
-	
-	cout << timeFormat;
+
 	return(timeFormat);
 }
 
@@ -187,11 +198,11 @@ double dateToSeconds(int monthVal, int dayVal, int yearVal)
 
 void listPrintDates(double dayArray[], int ArraySizeDay)
 {
-	for (int i = 0; i < ArraySizeDay; i++)
+	for (int i = 0; i <= ArraySizeDay; i++)
 	{
 		if (dayArray[i] > 0)
 		{
-			cout << "you have a workout on " << dayArray[i] << " of this month" << "\n";
+			cout << "you have a workout on " << dayArray[i] << " of this month";
 		}
 	}
 	return;
@@ -204,6 +215,12 @@ void personalTraits(int age,int weight,int heightFt,int heightIn)
 	cout << "age?\n";
 	cin >> age;
 
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits <streamsize>::max(), '\n');
+	}
+
 	//validating age
 	while ((age < 5) || (age > 100))
 	{
@@ -211,8 +228,16 @@ void personalTraits(int age,int weight,int heightFt,int heightIn)
 		cin >> age;
 	}
 
+	
+
 	cout << "weight in lbs?\n";
 	cin >> weight;
+
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits <streamsize>::max(), '\n');
+	}
 
 	//validating weight
 	while ((weight < 80) || (weight > 500))
@@ -223,6 +248,12 @@ void personalTraits(int age,int weight,int heightFt,int heightIn)
 
 	cout << "height in Ft and In?\n";
 	cin >> heightFt >> heightIn;
+
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits <streamsize>::max(), '\n');
+	}
 
 	//validating height
 	while ((heightFt < 3) || (heightFt > 7))
@@ -237,7 +268,7 @@ void personalTraits(int age,int weight,int heightFt,int heightIn)
 		cin >> heightIn;
 	}
 
-	cout << "Your current proflie settings are.\n" << "\n"
+	cout << "Your current proflie settings are.\n"
 	<< age << "Years old \n"
 	<< weight << "lbs \n"
 	<< heightFt << "Ft " << heightIn << "In \n";
@@ -249,15 +280,26 @@ void inputDates(int& monthVal, int& dayVal, int& yearVal)
 	cout << "enter workout month, day and year.\n";
 	cin >> monthVal;
 
-	while ((monthVal < 1) || (monthVal > 12))
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits <streamsize>::max(), '\n');
+	}
+
+	if ((monthVal < 1) || (monthVal > 12))
 	{
 		cout << "month input must be from 1 to 12.\n";
 		cin >> monthVal;
 	}
-
 	cin >> dayVal;
 
-	while ((dayVal < 1) || (dayVal > 31))
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits <streamsize>::max(), '\n');
+	}
+
+	if ((dayVal < 1) || (dayVal > 31))
 	{
 		cout << "day input must be from 1 to 31.\n";
 		cin >> dayVal;
@@ -265,7 +307,13 @@ void inputDates(int& monthVal, int& dayVal, int& yearVal)
 
 	cin >> yearVal;
 
-	while ((yearVal < 1970) || (monthVal > 2099))
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits <streamsize>::max(), '\n');
+	}
+
+	if ((yearVal < 1970) || (monthVal > 2099))
 	{
 		cout << "year input must be from 1970 to 2099.\n";
 		cin >> yearVal;
