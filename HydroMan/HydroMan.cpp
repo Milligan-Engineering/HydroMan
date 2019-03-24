@@ -15,7 +15,7 @@ using namespace std;
 
 void inputDates(int& monthVal, int& dayVal, int& yearVal);
 
-void personalTraits(int age, int weight, int heightFt, int heightIn);
+void personalTraits(int age, int weight, int heightFt, int heightIn);  
 
 double dateToSeconds(int monthVal, int dayVal, int yearVal);
 // Precondition: User inputs dates in format mm dd yyyy
