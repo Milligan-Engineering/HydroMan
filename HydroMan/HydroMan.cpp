@@ -15,7 +15,7 @@ using namespace std;
 
 void inputDates(int& monthVal, int& dayVal, int& yearVal);
 
-void personalTraits(int age, int weight, int heightFt, int heightIn);  
+void personalTraits(int& age, int& weight, int& heightFt, int& heightIn);  
 
 double dateToSeconds(int monthVal, int dayVal, int yearVal);
 // Precondition: User inputs dates in format mm dd yyyy
@@ -68,7 +68,7 @@ int main()
 		switch (waterOrWorkout)
 		{
 			// workout branch
-			case 'S':
+			case 'S' :
 			{
 				// telling current time
 				currentTime = time(NULL);
@@ -115,7 +115,7 @@ int main()
 						cin.ignore(numeric_limits <streamsize>::max(), '\n');
 					}
 
-					while ((ozOfWater < 0) || (ozOfWater > 33))
+					while ((ozOfWater < 1) || (ozOfWater > 32))
 					{
 						cout << "Please enter a valid water input from 1 to 32 oz.\n";
 						cin >> ozOfWater;
@@ -153,6 +153,7 @@ int main()
 				break;
 			}
 		}
+
 
 	} while (waterOrWorkout != 'E');
 }
@@ -195,7 +196,6 @@ double dateToSeconds(int monthVal, int dayVal, int yearVal)
 }
 
 
-
 void listPrintDates(double dayArray[], int ArraySizeDay)
 {
 	for (int i = 0; i <= ArraySizeDay; i++)
@@ -208,7 +208,7 @@ void listPrintDates(double dayArray[], int ArraySizeDay)
 	return;
 }
 
-void personalTraits(int age,int weight,int heightFt,int heightIn)
+void personalTraits(int& age,int& weight,int& heightFt,int& heightIn)
 {
 	cout << "Lets set up your user profile!\n";
 
