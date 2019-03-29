@@ -1,31 +1,24 @@
 //File Name: HydroMan.cpp
 //Author: John Rutherford
 //Email Adress: jmrutherford@my.milligan.edu	
-//Project Milestone 5
+//Project Milestone 9
 //Description: Program to manage athletes Hydration 
-//Last Changed:  Feburary 15, 2019
+//Last Changed:  March 29, 2019
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <fstream> 
-#include <limits>
-
-using namespace std;
-
-void inputDates(int& monthVal, int& dayVal, int& yearVal);
+#include "stdafx.h"
+#include "dateclass.h"
 
 void personalTraits(int& age, int& weight, int& heightFt, int& heightIn);  
-
-double dateToSeconds(int monthVal, int dayVal, int yearVal);
-// Precondition: User inputs dates in format mm dd yyyy
-// Postcondition: Returns how many seconds from jan 1 1970 to 12:00AM on the date inputed
+// Precondition: User inputs age, weight, heightFt, and heightIN
+// Postcondition: Funciton stores inputs in varibles
 
 double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar);
 // Precondition: User will have variables stored in profile 
 // Postcondition: User will know how much water needs to be drank in a day 
 
 void listPrintDates(double dayArray[], int ArraySizeDay);
+// Precondition: Must have a full array and know the size of the array
+// Postcondition: Print values of array on screen
 
 
 int numberOfWorkouts = 3;
@@ -43,9 +36,6 @@ int main()
 	char moreInputs;
 	char waterOrWorkout = 'S';
 	int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	int yearVal;
-	int monthVal;
-	int dayVal;
 	double todayWaterNeeded;
 	double currentTime;
 	double workoutDate[20];
@@ -54,12 +44,15 @@ int main()
 	ifstream inStream, inStream2;
 	ofstream outStream, outStream2, waterStream;
 
+	dateclass theDates;
+
 	// do while satement to relay menu prompt
 	
 
 
 	do 
 	{
+		
 		// menu for switch
 		cout << "S - Setup Workouts. \nD - Display upcoming workouts.\nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
 		cin >> waterOrWorkout; 
@@ -74,8 +67,8 @@ int main()
 				currentTime = time(NULL);
 				//date format converter
 			
-				inputDates(monthVal, dayVal, yearVal); 
-				workoutDate[numberOfWorkouts] = dateToSeconds(monthVal, dayVal, yearVal);
+				theDates.inputDates(); 
+				workoutDate[numberOfWorkouts] = theDates.dateToSeconds();
 				double timediff;
 				timediff = workoutDate[numberOfWorkouts] - currentTime;
 
@@ -153,8 +146,15 @@ int main()
 				break;
 			}
 		}
-
-
+		if ((waterOrWorkout != 'E') && (waterOrWorkout != 'S') && (waterOrWorkout != 'D') && (waterOrWorkout != 'W') && (waterOrWorkout != 'P'))
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits <streamsize>::max(), '\n');
+			}
+			cout << "invalid input please enter a character E, S, D, W, P.\n";
+		}
 	} while (waterOrWorkout != 'E');
 }
 
@@ -170,30 +170,6 @@ double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightP
 	return(waterNeeded);
 }
 
-double dateToSeconds(int monthVal, int dayVal, int yearVal)
-{
-	
-	double timeFormat;
-	timeFormat = (yearVal - 1970) * 365;
-	timeFormat += (yearVal - 1969) / 4;
-	for (int i = 0; i < monthVal - 1; i++)
-	{
-		if (((yearVal % 4 == 0) && (yearVal % 100 != 0)) || (yearVal % 400 == 0))
-		{
-			int daysOfMonth[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-			timeFormat += daysOfMonth[i];
-		}
-		else
-		{
-			int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-			timeFormat += daysOfMonth[i];
-		}
-	}
-	timeFormat += dayVal - 1;
-	timeFormat = timeFormat * 24 * 60 * 60;
-
-	return(timeFormat);
-}
 
 
 void listPrintDates(double dayArray[], int ArraySizeDay)
@@ -275,49 +251,3 @@ void personalTraits(int& age,int& weight,int& heightFt,int& heightIn)
 	return;
 }
 
-void inputDates(int& monthVal, int& dayVal, int& yearVal)
-{
-	cout << "enter workout month, day and year.\n";
-	cin >> monthVal;
-
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
-
-	if ((monthVal < 1) || (monthVal > 12))
-	{
-		cout << "month input must be from 1 to 12.\n";
-		cin >> monthVal;
-	}
-	cin >> dayVal;
-
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
-
-	if ((dayVal < 1) || (dayVal > 31))
-	{
-		cout << "day input must be from 1 to 31.\n";
-		cin >> dayVal;
-	}
-
-	cin >> yearVal;
-
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
-
-	if ((yearVal < 1970) || (monthVal > 2099))
-	{
-		cout << "year input must be from 1970 to 2099.\n";
-		cin >> yearVal;
-	}
-
-	cout << "you have selected " << monthVal << ", " << dayVal << ", " << yearVal << "\n";
-}
