@@ -56,7 +56,7 @@ int main()
 		// menu for switch
 		cout << "S - Setup Workouts. \nD - Display upcoming workouts.\nW - Track Water. \nP - Change Settings.\nE - Exit Program.";
 		cin >> waterOrWorkout; 
-
+		waterOrWorkout = toupper(waterOrWorkout);
 
 		switch (waterOrWorkout)
 		{
@@ -64,7 +64,7 @@ int main()
 			case 'S' :
 			{
 				// telling current time
-				currentTime = time(NULL);
+				currentTime = static_cast<double>(time(NULL));
 				//date format converter
 			
 				theDates.inputDates(); 
