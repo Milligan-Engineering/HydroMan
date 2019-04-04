@@ -138,10 +138,12 @@
   <ItemGroup>
     <ClCompile Include="dateclass.cpp" />
     <ClCompile Include="HydroMan.cpp" />
+    <ClCompile Include="profile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dateclass.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="profile.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
