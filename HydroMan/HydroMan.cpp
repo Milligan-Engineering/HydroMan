@@ -7,18 +7,17 @@
 
 #include "stdafx.h"
 #include "dateclass.h"
-
-void personalTraits(int& age, int& weight, int& heightFt, int& heightIn);  
-// Precondition: User inputs age, weight, heightFt, and heightIN
-// Postcondition: Funciton stores inputs in varibles
-
-double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar);
-// Precondition: User will have variables stored in profile 
-// Postcondition: User will know how much water needs to be drank in a day 
+#include "profile.h"
 
 void listPrintDates(double dayArray[], int ArraySizeDay);
 // Precondition: Must have a full array and know the size of the array
 // Postcondition: Print values of array on screen
+
+struct water
+{
+	double todayWaterNeeded, waterDifference;
+	int totalOzOfWater, ozOfWater;
+};
 
 
 int numberOfWorkouts = 3;
@@ -26,25 +25,18 @@ int numberOfWorkouts = 3;
 int main()
 {
 	string name = "John";
-	int age = 19;
-	int weight = 210;
-	int heightFt = 6;
-	int heightIn = 5;
 	char gender = 'M';
-	int totalOzOfWater = 0;
-	int ozOfWater;
 	char moreInputs;
 	char waterOrWorkout = 'S';
-	int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	double todayWaterNeeded;
 	double currentTime;
 	double workoutDate[20];
-	double waterDifference;
 	int  rateOfPerceivedExertion[20];
 	ifstream inStream, inStream2;
-	ofstream outStream, outStream2, waterStream;
+	ofstream outStream, waterStream;
 
 	dateclass theDates;
+	profile profileSetup;
+	water water;
 
 	// do while satement to relay menu prompt
 	
@@ -100,7 +92,7 @@ int main()
 				do
 				{
 					cout << "Enter oz of water\n";
-					cin >> ozOfWater;
+					cin >> water.ozOfWater;
 
 					if (cin.fail())
 					{
@@ -108,41 +100,38 @@ int main()
 						cin.ignore(numeric_limits <streamsize>::max(), '\n');
 					}
 
-					while ((ozOfWater < 1) || (ozOfWater > 32))
+					while ((water.ozOfWater < 1) || (water.ozOfWater > 32))
 					{
 						cout << "Please enter a valid water input from 1 to 32 oz.\n";
-						cin >> ozOfWater;
+						cin >> water.ozOfWater;
 					}
 
-					totalOzOfWater = ozOfWater + totalOzOfWater;
-					cout << "You have currently drank " << totalOzOfWater << " oz. of water\n";
-					todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
-					cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
-					waterDifference = todayWaterNeeded - totalOzOfWater;
-					cout << "you still need " << waterDifference << " oz of water today.";
+					water.totalOzOfWater = water.ozOfWater + water.totalOzOfWater;
+					cout << "You have currently drank " << water.totalOzOfWater << " oz. of water\n";
+					water.todayWaterNeeded = profileSetup.baseWaterNeeded();
+					cout << "based on your profile you need to drink " << water.todayWaterNeeded << " oz of water per day\n";
+					water.waterDifference = water.todayWaterNeeded - water.totalOzOfWater;
+					cout << "you still need " << water.waterDifference << " oz of water today.";
 					cout << "do you want to continue? Y/N?";
 					cin >> moreInputs;
 				} while (moreInputs == 'Y');
 
 
-				cout << " total water for the day is " << totalOzOfWater << "\n";
+				cout << " total water for the day is " << water.totalOzOfWater << "\n";
 				waterStream.open("performance_data.csv");
-				waterStream << name << "," << workoutDate[numberOfWorkouts] << "," << rateOfPerceivedExertion[numberOfWorkouts] << ","  << totalOzOfWater << "," << baseWaterNeeded;
+				waterStream << name << "," << workoutDate[numberOfWorkouts] << "," << rateOfPerceivedExertion[numberOfWorkouts] << ","  << water.totalOzOfWater << "," << water.todayWaterNeeded;
 				waterStream.close();
 			}	break;
 		
 			case 'P':
 			{
 				// function to imput characteristics 
-				personalTraits(age, weight, heightFt, heightIn);
+				profileSetup.personalTraits();
 				// puts profile setting into file named profileSettingsFile.
-			
-				outStream2.open("profileSettingsFile.csv");
-				outStream2 << "age " << age << "\n" << "weight " << weight << "\n" << "height in Ft " << heightFt << "\n" << "height in In " << heightIn;
-				todayWaterNeeded = baseWaterNeeded(heightIn, heightFt, age, weight, gender);
-				cout << "based on your profile you need to drink " << todayWaterNeeded << " oz of water per day\n";
+							
+				water.todayWaterNeeded = profileSetup.baseWaterNeeded();
+				cout << "based on your profile you need to drink " << water.todayWaterNeeded << " oz of water per day\n";
 
-				outStream2.close();
 				break;
 			}
 		}
@@ -158,20 +147,6 @@ int main()
 	} while (waterOrWorkout != 'E');
 }
 
-
-
-
-double baseWaterNeeded(int heightInPar, int heightFtPar, int agePar, int weightPar, char genderPar)
-{
-	
-	const double weightConst = .5;
-	double waterNeeded;
-	waterNeeded = weightPar * .5;
-	return(waterNeeded);
-}
-
-
-
 void listPrintDates(double dayArray[], int ArraySizeDay)
 {
 	for (int i = 0; i <= ArraySizeDay; i++)
@@ -184,70 +159,9 @@ void listPrintDates(double dayArray[], int ArraySizeDay)
 	return;
 }
 
-void personalTraits(int& age,int& weight,int& heightFt,int& heightIn)
+
+
+int test(profile profileSetup, dateclass theDate)
 {
-	cout << "Lets set up your user profile!\n";
-
-	cout << "age?\n";
-	cin >> age;
-
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
-
-	//validating age
-	while ((age < 5) || (age > 100))
-	{
-		cout << "invalid input please enter an age 5 to 100.\n";
-		cin >> age;
-	}
-
-	
-
-	cout << "weight in lbs?\n";
-	cin >> weight;
-
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
-
-	//validating weight
-	while ((weight < 80) || (weight > 500))
-	{
-		cout << "invalid input please enter a weight 80lbs to 500lbs.\n";
-		cin >> weight;
-	}
-
-	cout << "height in Ft and In?\n";
-	cin >> heightFt >> heightIn;
-
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
-
-	//validating height
-	while ((heightFt < 3) || (heightFt > 7))
-	{
-		cout << "invalid input please enter a height from 3FT and 7FT.\n";
-		cin >> heightFt;
-	}
-
-	while ((heightIn < 1) || (heightIn > 11))
-	{
-		cout << "invalid input please enter a height from 0IN to 12IN.\n";
-		cin >> heightIn;
-	}
-
-	cout << "Your current proflie settings are.\n"
-	<< age << "Years old \n"
-	<< weight << "lbs \n"
-	<< heightFt << "Ft " << heightIn << "In \n";
-	return;
+	return(profileSetup.getage() + theDate.getmonthVal());
 }
-

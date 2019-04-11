@@ -4,6 +4,7 @@ class dateclass
 public:
 	dateclass();
 	~dateclass();
+	class profile;
 
 	double dateToSeconds();
 	// Precondition: User inputs dates in format mm dd yyyy
@@ -12,6 +13,8 @@ public:
 	void inputDates();
 	// Precondition:  none
 	// Postcondition: Stores dates in variables 
+
+	friend int test(profile, dateclass);
 
 	// Accessor Functions
 	int getmonthVal();
