@@ -1,9 +1,9 @@
 //File Name: HydroMan.cpp
 //Author: John Rutherford
 //Email Adress: jmrutherford@my.milligan.edu	
-//Project Milestone 11
+//Project Milestone 10
 //Description: Program to manage athletes Hydration and workload.
-//Last Changed:  April 10, 2019
+//Last Changed:  April 12, 2019
 
 #include "stdafx.h"
 #include "dateclass.h"
