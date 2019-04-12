@@ -11,6 +11,14 @@ profile::~profile()
 {
 }
 
+profile::profile(int val1, int val2, int val3, int val4)
+{
+	age = val1;
+	weight = val2;
+	heightFt = val3;
+	heightIn = val4;
+}
+
 int profile::getage()
 {
 	return(age);
@@ -109,7 +117,7 @@ void profile::personalTraits()
 		cin >> heightFt;
 	}
 
-	while ((heightIn < 1) || (heightIn > 11))
+	while ((heightIn < 0) || (heightIn > 11))
 	{
 		cout << "invalid input please enter a height from 0IN to 12IN.\n";
 		cin >> heightIn;
@@ -122,11 +130,3 @@ void profile::personalTraits()
 	return;
 }
 
-double profile::baseWaterNeeded()
-{
-
-	const double weightConst = .5;
-	double waterNeeded;
-	waterNeeded = weight * .5;
-	return(waterNeeded);
-}

@@ -14,7 +14,6 @@ public:
 	// Precondition:  none
 	// Postcondition: Stores dates in variables 
 
-	friend int test(profile, dateclass);
 
 	// Accessor Functions
 	int getmonthVal();
