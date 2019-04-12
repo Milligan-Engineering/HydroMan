@@ -17,7 +17,7 @@ public:
 	// Precondition: User inputs age, weight, heightFt, and heightIN
 	// Postcondition: Funciton stores inputs in varibles
 
-	// friend double baseWaterNeeded(workouts workouts);
+	friend double baseWaterNeeded(workouts, profile);
 	// Precondition: User will have variables stored in profile 
 	// Postcondition: User will know how much water needs to be drank in a day 
 

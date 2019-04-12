@@ -10,6 +10,8 @@
 #include "profile.h"
 #include "workouts.h"
 
+double baseWaterNeeded(workouts, profile);
+
 void listPrintDates(double dayArray[], int ArraySizeDay);
 // Precondition: Must have a full array and know the size of the array
 // Postcondition: Print values of array on screen
@@ -41,7 +43,7 @@ int main()
 
 	// do while satement to relay menu prompt
 	
-    water.todayWaterNeeded = baseWaterNeeded(profileSetup);
+    water.todayWaterNeeded = baseWaterNeeded(workouts, profileSetup);
 
 	do 
 	{
@@ -60,13 +62,13 @@ int main()
 				currentTime = static_cast<double>(time(NULL));
 				//date format converter
 				double i[20] = { 7 };
-				theDates.inputDates(); 
-				// workouts.setworkoutDate() , theDates.dateToSeconds();
+				theDates.inputDates();
+				double temp = theDates.dateToSeconds();
+				workouts.setworkoutDate(temp);
 				double timediff;
 				timediff = workouts.getworkoutDate() - currentTime;
 				//puts workout dates into file named workoutDateFile
 				cout << "\n";
-				cout << "please input expected intensity of workout.";
 				outStream.open("workoutDateFile.csv");
 				outStream << name << "," << " has a workout on " << "," << workouts.getworkoutDate() << "," << " with a RPE of " << ","<< workouts.getrateOfPerceivedExertion();
 				outStream.close();
@@ -107,7 +109,7 @@ int main()
 
 					water.totalOzOfWater = water.ozOfWater + water.totalOzOfWater;
 					cout << "You have currently drank " << water.totalOzOfWater << " oz. of water\n";
-					// water.todayWaterNeeded = baseWaterNeeded(profileSetup, workouts);
+					water.todayWaterNeeded = baseWaterNeeded(workouts, profileSetup);
 					cout << "based on your profile you need to drink " << water.todayWaterNeeded << " oz of water per day\n";
 					water.waterDifference = water.todayWaterNeeded - water.totalOzOfWater;
 					cout << "you still need " << water.waterDifference << " oz of water today.";
@@ -120,6 +122,7 @@ int main()
 
 
 				cout << " total water for the day is " << water.totalOzOfWater << "\n";
+				currentTime = static_cast<double>(time(NULL));
 				waterStream.open("performance_data.csv");
 				waterStream << name << "," << name << "," << currentTime << ","  << water.totalOzOfWater << "," << water.todayWaterNeeded;
 				waterStream.close();
@@ -131,7 +134,7 @@ int main()
 				profileSetup.personalTraits();
 				// puts profile setting into file named profileSettingsFile.
 							
-				// water.todayWaterNeeded = baseWaterNeeded(profileSetup, workouts);
+				water.todayWaterNeeded = baseWaterNeeded(workouts, profileSetup);
 				cout << "based on your profile you need to drink " << water.todayWaterNeeded << " oz of water per day\n";
 
 				break;
@@ -164,11 +167,10 @@ void listPrintDates(double dayArray[], int ArraySizeDay)
 
 
 
-double baseWaterNeeded(profile profileSetup)//workouts workouts)
+double baseWaterNeeded(workouts workouts, profile profileSetup)
 {
 
 	double waterNeeded;
-	waterNeeded = profileSetup.getweight() * .5;
-	// waterNeeded = workouts.getrateOfPerceivedExertion();
+	waterNeeded = (profileSetup.getweight() * .5 + (workouts.getrateOfPerceivedExertion() * 3));
 	return(waterNeeded);
 }

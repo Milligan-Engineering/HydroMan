@@ -12,41 +12,41 @@ workouts::~workouts()
 }
 workouts::workouts(int val1)
 {
-	rateOfPerceivedExertion[0] = 1;
+	rateOfPerceivedExertion = 1;
 }
 
 int workouts::getrateOfPerceivedExertion()
 {
-	return(rateOfPerceivedExertion[1]);
+	return(rateOfPerceivedExertion);
 }
 
 double workouts::getworkoutDate()
 {
-	return(workoutDate[1]);
+	return(workoutDate);
 }
 
 string workouts::getexercises()
 {
-	return(exercises[1]);
+	return(exercises);
 }
 
-int workouts::setrateOfPerceivedExertion(int value[20])
+int workouts::setrateOfPerceivedExertion(int value)
 {
 	
-	rateOfPerceivedExertion[1] = value[1];
-	return(value[1]);
+	rateOfPerceivedExertion = value;
+	return(value);
 }
 
-double workouts::setworkoutDate(double value[20])
+double workouts::setworkoutDate(double value)
 {
 
-	workoutDate[1] = value[1];
-	return(value[1]);
+	workoutDate = value;
+	return(value);
 }
 
-string workouts::setexercises(string value[20])
+string workouts::setexercises(string value)
 {
 
-	exercises[1] = value[1];
-	return(value[1]);
+	exercises = value;
+	return(value);
 }
