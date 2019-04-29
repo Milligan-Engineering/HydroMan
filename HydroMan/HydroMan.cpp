@@ -24,17 +24,15 @@ struct water
 };
 
 
-
-
 int main()
 {
-	string name = "John";
-	char gender = 'M';
+	char name[15] = "John"; //move to class
+	char gender = 'M'; //move to class
 	char moreInputs;
 	char waterOrWorkout = 'S';
-	double currentTime;
-	ifstream inStream, inStream2, inWorkoutStream;
-	ofstream outStream, waterStream, outWorkoutStream;
+	double currentTime = static_cast<double>(time(NULL));
+	ifstream inStream2, inWorkoutStream;
+	ofstream waterStream, outWorkoutStream;
 
 	dateclass theDates;
 	profile profileSetup(19, 210, 6, 4);
@@ -58,10 +56,7 @@ int main()
 			// workout branch
 			case 'S' :
 			{
-				// telling current time
-				currentTime = static_cast<double>(time(NULL));
 				//date format converter
-				double i[20] = { 7 };
 				theDates.inputDates();
 				double temp = theDates.dateToSeconds();
 				workouts.setworkoutDate(temp);
@@ -69,19 +64,40 @@ int main()
 				timediff = workouts.getworkoutDate() - currentTime;
 				//puts workout dates into file named workoutDateFile
 				cout << "\n";
-				outStream.open("workoutDateFile.csv");
-				outStream << name << "," << " has a workout on " << "," << workouts.getworkoutDate() << "," << " with a RPE of " << ","<< workouts.getrateOfPerceivedExertion();
-				outStream.close();
+				outWorkoutStream.open("workoutDateFile.csv", std::ofstream::app);
+				outWorkoutStream << name << "," << workouts.getworkoutDate() << ","<< workouts.getrateOfPerceivedExertion() << "\n";
+				outWorkoutStream.close();
+				
+					
 				break;
 			}
 			case 'D':
 			{
 				// pulls workout dates from workout date file and displays on the screen.
-				string line;
-				inStream.open("workoutDateFile.csv");
-				getline(inStream, line);
-				cout << line << endl;
-				inStream.close();
+				char workoutData[20];
+				inWorkoutStream.open("workoutDateFile.csv");
+				char ans;
+				do
+				{
+					inWorkoutStream.getline(workoutData, 20);
+					int test;
+					char stringTest[20] = "\0";
+					test = strncmp(workoutData, stringTest, 20);
+					if (test == 0)
+					{
+						cout << "no more workouts left. \n";
+						break;
+					}
+					else
+					{
+						cout << workoutData << "\n";
+						cout << "do you want to see the next workout? \n";
+						cin >> ans;
+					}
+
+				} while (ans == 'y' || ans == 'Y');
+				
+				inWorkoutStream.close();
 				break;
 			}
 			case 'W':
@@ -123,8 +139,13 @@ int main()
 
 				cout << " total water for the day is " << water.totalOzOfWater << "\n";
 				currentTime = static_cast<double>(time(NULL));
-				waterStream.open("performance_data.csv");
-				waterStream << name << "," << name << "," << currentTime << ","  << water.totalOzOfWater << "," << water.todayWaterNeeded;
+				waterStream.open("performance_data.csv", std::ofstream::app);
+				if (waterStream.fail())
+				{
+					cout << "Input file opening failed.\n";
+					exit(1);
+				}
+				waterStream << name << "," << currentTime << ","  << water.totalOzOfWater << "," << water.todayWaterNeeded << "\n";
 				waterStream.close();
 			}	break;
 		
