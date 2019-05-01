@@ -16,6 +16,8 @@ void listPrintDates(double dayArray[], int ArraySizeDay);
 // Precondition: Must have a full array and know the size of the array
 // Postcondition: Print values of array on screen
 
+void newLine(ifstream& inWorkoutStream);
+
 // encapsulated struct
 struct water
 {
@@ -67,22 +69,25 @@ int main()
 				outWorkoutStream.open("workoutDateFile.csv", std::ofstream::app);
 				outWorkoutStream << name << "," << workouts.getworkoutDate() << ","<< workouts.getrateOfPerceivedExertion() << "\n";
 				outWorkoutStream.close();
-				
-					
 				break;
 			}
 			case 'D':
 			{
 				// pulls workout dates from workout date file and displays on the screen.
-				char workoutData[20];
+				char nameInFile[5];
+				char workoutDateInFile[20];
+				char intensityInFile[2];
 				inWorkoutStream.open("workoutDateFile.csv");
 				char ans;
 				do
 				{
-					inWorkoutStream.getline(workoutData, 20);
+					inWorkoutStream.getline(nameInFile, 5, ',');
+					inWorkoutStream.getline(workoutDateInFile, 20, ',');
+					inWorkoutStream.getline(intensityInFile, 2, ',');
+					newLine(inWorkoutStream);
 					int test;
 					char stringTest[20] = "\0";
-					test = strncmp(workoutData, stringTest, 20);
+					test = strncmp(nameInFile, stringTest, 4);
 					if (test == 0)
 					{
 						cout << "no more workouts left. \n";
@@ -90,7 +95,9 @@ int main()
 					}
 					else
 					{
-						cout << workoutData << "\n";
+						cout << nameInFile << "\n";
+						cout << workoutDateInFile << "\n";
+						cout << intensityInFile << "\n";
 						cout << "do you want to see the next workout? \n";
 						cin >> ans;
 					}
@@ -185,7 +192,14 @@ void listPrintDates(double dayArray[], int ArraySizeDay)
 	return;
 }
 
-
+void newLine(ifstream& inWorkoutStream)
+{
+	char symbol;
+	do
+	{
+	inWorkoutStream.get(symbol);
+	} while (symbol != '\n');
+}
 
 
 double baseWaterNeeded(workouts workouts, profile profileSetup)

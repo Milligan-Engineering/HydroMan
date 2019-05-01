@@ -92,24 +92,84 @@ void dateclass::inputDates()
 		cin.ignore(numeric_limits <streamsize>::max(), '\n');
 	}
 
+	
 	if ((monthVal < 1) || (monthVal > 12))
 	{
 		cout << "month input must be from 1 to 12.\n";
 		cin >> monthVal;
 	}
-	cin >> dayVal;
+		if (monthVal == 1 || monthVal == 3 || monthVal == 5 || monthVal == 7 || monthVal == 8 || monthVal == 10)
+		{	cin >> dayVal;
 
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits <streamsize>::max(), '\n');
-	}
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits <streamsize>::max(), '\n');
+			}
 
-	if ((dayVal < 1) || (dayVal > 31))
-	{
-		cout << "day input must be from 1 to 31.\n";
-		cin >> dayVal;
-	}
+			if ((dayVal < 1) || (dayVal > 31))
+			{
+				cout << "day input must be from 1 to 31.\n";
+				cin >> dayVal;
+			}
+		}
+		if (monthVal == 4 || monthVal == 6 || monthVal == 9 || monthVal == 11 || monthVal == 12)
+		{
+			cin >> dayVal;
+
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits <streamsize>::max(), '\n');
+			}
+
+			if ((dayVal < 1) || (dayVal > 30))
+			{
+				cout << "day input must be from 1 to 31.\n";
+				cin >> dayVal;
+			}
+		}
+		if (monthVal == 2)
+		{
+			char ans;
+			cout << "will this be a leap year val? Y or N\n";
+			cin >> ans;
+			if (ans == 'Y' || ans == 'y')
+			{
+				cout << "input day Val";
+				cin >> dayVal;
+
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(numeric_limits <streamsize>::max(), '\n');
+				}
+
+				if ((dayVal < 1) || (dayVal > 29))
+				{
+					cout << "day input must be from 1 to 29.\n";
+					cin >> dayVal;
+				}
+			}
+			if (ans == 'N' || ans == 'n')
+			{
+				cout << "input day Val";
+				cin >> dayVal;
+
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(numeric_limits <streamsize>::max(), '\n');
+				}
+
+				if ((dayVal < 1) || (dayVal > 28))
+				{
+					cout << "day input must be from 1 to 28.\n";
+					cin >> dayVal;
+				}
+			}
+
+		}
 
 	cin >> yearVal;
 
