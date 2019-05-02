@@ -35,7 +35,6 @@ int main()
 	double currentTime = static_cast<double>(time(NULL));
 	ifstream inStream2, inWorkoutStream;
 	ofstream waterStream, outWorkoutStream;
-
 	dateclass theDates;
 	profile profileSetup(19, 210, 6, 4);
 	water water;
@@ -60,8 +59,12 @@ int main()
 			{
 				//date format converter
 				theDates.inputDates();
-				double temp = theDates.dateToSeconds();
-				workouts.setworkoutDate(temp);
+				double temp1 = theDates.dateToSeconds();
+				workouts.setworkoutDate(temp1);
+				int temp2;
+				cout << "input intensity of this workout.\n";
+				cin >> temp2;
+				workouts.setrateOfPerceivedExertion(temp2);
 				double timediff;
 				timediff = workouts.getworkoutDate() - currentTime;
 				//puts workout dates into file named workoutDateFile
@@ -83,8 +86,8 @@ int main()
 				{
 					inWorkoutStream.getline(nameInFile, 5, ',');
 					inWorkoutStream.getline(workoutDateInFile, 20, ',');
-					inWorkoutStream.getline(intensityInFile, 2, ',');
-					newLine(inWorkoutStream);
+					inWorkoutStream.getline(intensityInFile, 2, '\n');
+					//newLine(inWorkoutStream);
 					int test;
 					char stringTest[20] = "\0";
 					test = strncmp(nameInFile, stringTest, 4);
@@ -204,8 +207,38 @@ void newLine(ifstream& inWorkoutStream)
 
 double baseWaterNeeded(workouts workouts, profile profileSetup)
 {
-
 	double waterNeeded;
-	waterNeeded = (profileSetup.getweight() * .5 + (workouts.getrateOfPerceivedExertion() * 3));
-	return(waterNeeded);
+	if (workouts.getrateOfPerceivedExertion() < 1 || workouts.getrateOfPerceivedExertion() > 10)
+	{
+		waterNeeded = (profileSetup.getweight() * .5);
+	}
+	else
+	{
+		waterNeeded = (profileSetup.getweight() * .5 + (workouts.getrateOfPerceivedExertion() * 3));
+		return(waterNeeded);
+	}
 }
+/*
+void secondsToDate(double seconds)
+{
+	double numberOfDays = ((seconds/60)/(60))/24;
+	double yearSince = (numberOfDays / 365);
+	double yearVal = yearSince + 1970;
+	double secSinceNewYears = seconds - (yearSince * 365 *60 *60 *24)
+	for (int i = 0; i < monthVal - 1; i++)
+	{
+		if (((yearVal % 4 == 0) && (yearVal % 100 != 0)) || (yearVal % 400 == 0))
+		{
+			int daysOfMonth[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+			timeFormat += daysOfMonth[i];
+		}
+		else
+		{
+			int daysOfMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+			timeFormat += daysOfMonth[i];
+		}
+	}
+	 = timeFormat * 24 * 60 * 60;
+
+}
+*/

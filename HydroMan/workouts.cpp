@@ -12,7 +12,7 @@ workouts::~workouts()
 }
 workouts::workouts(int val1)
 {
-	rateOfPerceivedExertion;
+	rateOfPerceivedExertion = val1;
 }
 
 int workouts::getrateOfPerceivedExertion()
