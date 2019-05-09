@@ -11,12 +11,14 @@ profile::~profile()
 {
 }
 
-profile::profile(int val1, int val2, int val3, int val4)
+profile::profile(int val1, int val2, int val3, int val4, char val6)
 {
 	age = val1;
 	weight = val2;
 	heightFt = val3;
 	heightIn = val4;
+	gender = val6; 
+	
 }
 
 int profile::getage()
@@ -37,6 +39,11 @@ int profile::getheightFt()
 int profile::getheightIn()
 {
 	return(heightIn);
+}
+
+char profile::setgender()
+{
+	return(gender);
 }
 
 int profile::setage(int value)
@@ -61,6 +68,12 @@ int profile::setheightIn(int value)
 {
 	heightIn = value;
 	return(value);
+}
+
+char profile::setgender(char value)
+{
+	gender = value;
+		return(value);
 }
 
 void profile::personalTraits()

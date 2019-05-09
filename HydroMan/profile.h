@@ -6,20 +6,17 @@ public:
 	profile();
 	~profile();
 
-	profile(int val1, int val2, int val3, int val4);
+	profile(int val1, int val2, int val3, int val4, char val6);
 
 	class workouts;
 	
+	friend double baseWaterNeeded(workouts, profile);
 	// Precondition: User will have variables stored in profile 
 	// Postcondition: User will know how much water needs to be drank in a day 
 
 	void personalTraits();
 	// Precondition: User inputs age, weight, heightFt, and heightIN
 	// Postcondition: Funciton stores inputs in varibles
-
-	friend double baseWaterNeeded(workouts, profile);
-	// Precondition: User will have variables stored in profile 
-	// Postcondition: User will know how much water needs to be drank in a day 
 
 
 
@@ -28,6 +25,7 @@ public:
 	int getweight();
 	int getheightFt();
 	int getheightIn();
+	char setgender();
 
 	// mutator function
 	int setage(int value);
@@ -46,7 +44,12 @@ public:
 	//Precondition: Value to set heightIn to its given in value
 	//postcondition: heightIn is set to a value, value is also returned
 
+	char setgender(char value);
+	//Precondition: Value to set gender to its given in value
+	//postcondition: gender is set to a value, value is also returned
+
 private:
 	int age, weight, heightFt, heightIn;
+	char gender;
 };
 
