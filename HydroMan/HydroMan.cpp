@@ -25,7 +25,8 @@ void listPrintDates(double dayArray[], int ArraySizeDay);
 // Postcondition: Print values of array on screen
 
 void newLine(ifstream& inWorkoutStream);
-
+// Precondition: have a file open
+// Postcondition: Goes to next line in file.
 
 
 // encapsulated struct
